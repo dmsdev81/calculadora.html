@@ -1,0 +1,116 @@
+<!-- HTML -->
+<div class="container">
+  <div class="item item-header" id="currentValue">0</div>
+  <button class="btn silver" onclick="clearDisplay()">AC</button>
+  <button class="btn silver" onclick="makeInputNegative()">+/-</button>
+  <button class="btn silver" onclick="calculatePercentage()">%</button>
+  <button class="btn orange" onclick="appendOperator('/')">÷</button>
+  <button class="btn" onclick="appendDigit(7)">7</button>
+  <button class="btn" onclick="appendDigit(8)">8</button>
+  <button class="btn" onclick="appendDigit(9)">9</button>
+  <button class="btn orange" onclick="appendOperator('*')">X</button>
+  <button class="btn" onclick="appendDigit(4)">4</button>
+  <button class="btn" onclick="appendDigit(5)">5</button>
+  <button class="btn" onclick="appendDigit(6)">6</button>
+  <button class="btn orange" onclick="appendOperator('-')">-</button>
+  <button class="btn" onclick="appendDigit(1)">1</button>
+  <button class="btn" onclick="appendDigit(2)">2</button>
+  <button class="btn" onclick="appendDigit(3)">3</button>
+  <button class="btn orange" onclick="appendOperator('+')">+</button>
+  <button class="btn" onclick="appendDigit(0)">0</button>
+  <button class="btn" onclick="appendDigit(0)">0</button>
+  <button class="btn" onclick="appendDecimal()">.</button>
+  <button class="btn orange" onclick="calculate()">=</button>
+</div>
+
+<!-- CSS -->
+<style>
+  body {
+    font-size: 64px;
+    background-color: black;
+  }
+ .container {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 80px 80px 80px 80px;
+    grid-gap: 10px;
+  }
+ .item-header {
+    grid-column: 1 / -1;
+    background-color: orange;
+    color: white;
+    padding: 10px;
+    text-align: right;
+    font-size: 48px;
+  }
+ .btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 48px;
+    cursor: pointer;
+  }
+ .btn.silver {
+    background-color: silver;
+  }
+ .btn.orange {
+    background-color: orange;
+  }
+</style>
+
+<!-- JavaScript -->
+<script>
+  let currentValue = document.getElementById('currentValue');
+  let globalAnswer = 0;
+
+  function clearDisplay() {
+    currentValue.innerHTML = '0';
+  }
+
+  function makeInputNegative() {
+    let currentValueText = currentValue.innerHTML;
+    if (currentValueText[0] === '-') {
+      currentValueText = currentValueText.slice(1);
+    } else {
+      currentValueText = '-' + currentValueText;
+    }
+    currentValue.innerHTML = currentValueText;
+  }
+
+  function calculatePercentage() {
+    let currentValueText = currentValue.innerHTML;
+    currentValueText = currentValueText / 100;
+    currentValue.innerHTML = currentValueText;
+  }
+
+  function appendDigit(digit) {
+    let currentValueText = currentValue.innerHTML;
+    if (currentValueText === '0') {
+      currentValueText = digit;
+    } else {
+      currentValueText += digit;
+    }
+    currentValue.innerHTML = currentValueText;
+  }
+
+  function appendOperator(operator) {
+    let currentValueText = currentValue.innerHTML;
+    currentValueText += operator;
+    currentValue.innerHTML = currentValueText;
+  }
+
+  function appendDecimal() {
+    let currentValueText = currentValue.innerHTML;
+    if (!currentValueText.includes('.')) {
+      currentValueText += '.';
+    }
+    currentValue.innerHTML = currentValueText;
+  }
+
+  function calculate() {
+    let currentValueText = currentValue.innerHTML;
+    globalAnswer = eval(currentValueText);
+    currentValue.innerHTML = globalAnswer;
+  }
+</script>html
